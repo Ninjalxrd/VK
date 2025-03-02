@@ -10,5 +10,4 @@
 # Скриншоты:
 
 <img width="379" alt="Снимок экрана 2025-03-02 в 18 18 41" src="https://github.com/user-attachments/assets/e855569e-6cf3-4c42-9cd2-73e4b431e63d" />
-
-<img width="1440" alt="Снимок экрана 2025-03-02 в 18 21 05" src="https://github.com/user-attachments/assets/148f66da-806e-40a0-9e88-e1cf17f3086e" />
+<img width="379" alt="Снимок экрана 2025-03-02 в 18 21 35" src="https://github.com/user-attachments/assets/9c598860-a01f-419d-b480-f6c007615bb7" />
