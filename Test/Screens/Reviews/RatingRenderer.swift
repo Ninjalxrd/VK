@@ -36,16 +36,16 @@ extension RatingRendererConfig {
 final class RatingRenderer {
 
     private let config: RatingRendererConfig
-    private var images: [Int: UIImage]
+    private let imageCache: NSCache<NSNumber, UIImage>
     private let imageRenderer: UIGraphicsImageRenderer
 
     init(
         config: RatingRendererConfig,
-        images: [Int: UIImage],
+        imageCache: NSCache<NSNumber, UIImage>,
         imageRenderer: UIGraphicsImageRenderer
     ) {
         self.config = config
-        self.images = images
+        self.imageCache = imageCache
         self.imageRenderer = imageRenderer
     }
 
@@ -53,6 +53,7 @@ final class RatingRenderer {
 
 // MARK: - Internal
 
+/// Исправил кэширование, кэшируется теперь через NSCache
 extension RatingRenderer {
 
     convenience init(config: RatingRendererConfig = .default()) {
@@ -60,11 +61,17 @@ extension RatingRenderer {
             width: (config.starImage.size.width + config.spacing) * CGFloat(config.ratingRange.upperBound) - config.spacing,
             height: config.starImage.size.height
         )
-        self.init(config: config, images: [:], imageRenderer: UIGraphicsImageRenderer(size: size))
+        self.init(config: config, imageCache: NSCache<NSNumber, UIImage>(), imageRenderer: UIGraphicsImageRenderer(size: size))
     }
 
     func ratingImage(_ rating: Int) -> UIImage {
-        images[rating] ?? drawRatingImageAndCache(rating)
+        let key = NSNumber(value: rating)
+        if let cachedImage = imageCache.object(forKey: key) {
+            return cachedImage
+        }
+        let image = drawRatingImageAndCache(rating)
+        imageCache.setObject(image, forKey: key)
+        return image
     }
 
 }
@@ -75,7 +82,7 @@ private extension RatingRenderer {
 
     func drawRatingImageAndCache(_ rating: Int) -> UIImage {
         let ratingImage = drawRatingImage(rating)
-        images[rating] = ratingImage
+        imageCache.setObject(ratingImage, forKey: NSNumber(integerLiteral: rating))
         return ratingImage
     }
 

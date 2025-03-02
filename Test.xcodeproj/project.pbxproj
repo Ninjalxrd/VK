@@ -27,6 +27,7 @@
 		21ED1F602D69C85E0012D6F6 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21ED1F5F2D69C85E0012D6F6 /* RootViewController.swift */; };
 		21ED1F622D69CBCD0012D6F6 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21ED1F612D69CBCD0012D6F6 /* RootView.swift */; };
 		21ED1F652D69D0340012D6F6 /* ReviewsScreenFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21ED1F642D69D0340012D6F6 /* ReviewsScreenFactory.swift */; };
+		E976B2DB2D745E3A00A950C2 /* TotalReviewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E976B2DA2D745E3A00A950C2 /* TotalReviewsCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,7 +52,21 @@
 		21ED1F5F2D69C85E0012D6F6 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		21ED1F612D69CBCD0012D6F6 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		21ED1F642D69D0340012D6F6 /* ReviewsScreenFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsScreenFactory.swift; sourceTree = "<group>"; };
+		E976B2DA2D745E3A00A950C2 /* TotalReviewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalReviewsCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		E97317862D749E3400F73687 /* Service */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Service;
+			sourceTree = "<group>";
+		};
+		E976B3352D74644600A950C2 /* Network */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Network;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		21B82DF62D4792300085DAA2 /* Frameworks */ = {
@@ -85,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				21B82E252D47B0640085DAA2 /* ReviewCell.swift */,
+				E976B2DA2D745E3A00A950C2 /* TotalReviewsCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -117,6 +133,8 @@
 		21B82E242D47B0640085DAA2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E976B3352D74644600A950C2 /* Network */,
+				E97317862D749E3400F73687 /* Service */,
 				21B841692D47BE780085DAA2 /* Responses */,
 				21B82E232D47B0640085DAA2 /* Assets.xcassets */,
 			);
@@ -202,6 +220,10 @@
 			);
 			dependencies = (
 			);
+			fileSystemSynchronizedGroups = (
+				E97317862D749E3400F73687 /* Service */,
+				E976B3352D74644600A950C2 /* Network */,
+			);
 			name = Test;
 			packageProductDependencies = (
 			);
@@ -277,6 +299,7 @@
 				21ED1F652D69D0340012D6F6 /* ReviewsScreenFactory.swift in Sources */,
 				2166686F2D48E23F009AAA76 /* Fonts.swift in Sources */,
 				21B82E312D47B0640085DAA2 /* AppDelegate.swift in Sources */,
+				E976B2DB2D745E3A00A950C2 /* TotalReviewsCell.swift in Sources */,
 				21B8416F2D47C4C60085DAA2 /* String+Ext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

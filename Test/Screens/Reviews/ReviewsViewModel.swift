@@ -6,7 +6,11 @@ final class ReviewsViewModel: NSObject {
     /// Замыкание, вызываемое при изменении `state`.
     var onStateChange: ((State) -> Void)?
 
-    private var state: State
+    private var state: State {
+        didSet {
+            onStateChange?(state)
+        }
+    }
     private let reviewsProvider: ReviewsProvider
     private let ratingRenderer: RatingRenderer
     private let decoder: JSONDecoder
@@ -22,7 +26,33 @@ final class ReviewsViewModel: NSObject {
         self.ratingRenderer = ratingRenderer
         self.decoder = decoder
     }
-
+    
+    //MARK: - Network
+    
+    private let session: URLSession = URLSession(configuration: .default)
+    private lazy var jsonDecoder: JSONDecoder = {
+        let decoder = JSONDecoder()
+        return decoder
+    }()
+    
+    static func obtainAvatar(avatarUrl: String?) async throws -> UIImage? {
+        guard let url = avatarUrl else { return nil }
+        let result = try await ImageService.downloadImage(by: url)
+        return result
+    }
+    
+    static func obtainPhotos(urls: [String]?) async throws -> [UIImage] {
+        guard let urls = urls, !urls.isEmpty else { return [] }
+        var result: [UIImage] = []
+        
+        for url in urls {
+            let image = try await ImageService.downloadImage(by: url)
+            if let image = image {
+                result.append(image)
+            }
+        }
+        return result
+    }
 }
 
 // MARK: - Internal
@@ -32,10 +62,15 @@ extension ReviewsViewModel {
     typealias State = ReviewsViewModelState
 
     /// Метод получения отзывов.
-    func getReviews() {
-        guard state.shouldLoad else { return }
+    func getReviews()  {
+        guard state.shouldLoad, !state.isLoading else { return }
+        state.isLoading = true
         state.shouldLoad = false
-        reviewsProvider.getReviews(offset: state.offset, completion: gotReviews)
+        Task {
+            let result = await reviewsProvider.getReviews(offset: state.offset)
+            gotReviews(result)
+            state.isLoading = false
+        }
     }
 
 }
@@ -49,27 +84,35 @@ private extension ReviewsViewModel {
         do {
             let data = try result.get()
             let reviews = try decoder.decode(Reviews.self, from: data)
-            state.items += reviews.items.map(makeReviewItem)
-            state.offset += state.limit
-            state.shouldLoad = state.offset < reviews.count
+            
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                self.state.items += reviews.items.map(self.makeReviewItem)
+                self.state.offset += self.state.limit
+                self.state.count = reviews.count
+                self.state.shouldLoad = self.state.offset < reviews.count
+                self.onStateChange?(self.state)
+            }
         } catch {
-            state.shouldLoad = true
+            print("Ошибка декодирования: \(error)")
+            DispatchQueue.main.async {[weak self] in
+                guard let self else { return }
+                self.state.shouldLoad = true
+                self.state.isLoading = false
+                self.onStateChange?(self.state)
+            }
         }
-        onStateChange?(state)
     }
 
     /// Метод, вызываемый при нажатии на кнопку "Показать полностью...".
     /// Снимает ограничение на количество строк текста отзыва (раскрывает текст).
     func showMoreReview(with id: UUID) {
-        guard
-            let index = state.items.firstIndex(where: { ($0 as? ReviewItem)?.id == id }),
-            var item = state.items[index] as? ReviewItem
-        else { return }
+        guard let index = state.items.firstIndex(where: { ($0 as? ReviewItem)?.id == id }),
+        var item = state.items[index] as? ReviewItem else { return }
         item.maxLines = .zero
         state.items[index] = item
         onStateChange?(state)
     }
-
 }
 
 // MARK: - Items
@@ -79,12 +122,21 @@ private extension ReviewsViewModel {
     typealias ReviewItem = ReviewCellConfig
 
     func makeReviewItem(_ review: Review) -> ReviewItem {
+        let avatarURL = review.avatarURL
+        let fullNameText = "\(review.first_name) \(review.last_name)".attributed(font: .username)
+        let photoURLs = review.photoURLs
         let reviewText = review.text.attributed(font: .text)
         let created = review.created.attributed(font: .created, color: .created)
         let item = ReviewItem(
+            fullNameText: fullNameText,
+            rating: review.rating,
+            avatarURL: avatarURL,
+            photoURLs: photoURLs,
             reviewText: reviewText,
             created: created,
-            onTapShowMore: showMoreReview
+            onTapShowMore: { [weak self] id in
+                self?.showMoreReview(with: id)
+            }
         )
         return item
     }
@@ -96,10 +148,18 @@ private extension ReviewsViewModel {
 extension ReviewsViewModel: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        state.items.count
+        return state.items.count + 1
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.row == state.items.count {
+            let cell = tableView.dequeueReusableCell(withIdentifier: TotalReviewsCellConfig.reuseId,
+                                                     for: indexPath) as! TotalCell
+            TotalReviewsCellConfig(total: state.count).update(cell: cell)
+            print(state.count)
+            return cell
+        }
+        
         let config = state.items[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: config.reuseId, for: indexPath)
         config.update(cell: cell)
@@ -113,7 +173,10 @@ extension ReviewsViewModel: UITableViewDataSource {
 extension ReviewsViewModel: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        state.items[indexPath.row].height(with: tableView.bounds.size)
+        if indexPath.row == state.items.count {
+            return TotalReviewsCellConfig(total: 0).height(with: tableView.bounds.size)
+        }
+        return state.items[indexPath.row].height(with: tableView.bounds.size)
     }
 
     /// Метод дозапрашивает отзывы, если до конца списка отзывов осталось два с половиной экрана по высоте.

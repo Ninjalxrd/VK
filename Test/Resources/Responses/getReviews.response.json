@@ -5,6 +5,14 @@
             "first_name": "Иван",
             "last_name": "Петров",
             "rating": 5,
+            "avatar_url": "https://cdn2.thecatapi.com/images/r0.jpg",
+            "photo_urls": [
+                "https://cdn2.thecatapi.com/images/9dh.jpg",
+                "https://cdn2.thecatapi.com/images/a3c.jpg",
+                "https://cdn2.thecatapi.com/images/bb7.jpg",
+                "https://cdn2.thecatapi.com/images/OfIuuOv07.jpg",
+                "https://cdn2.thecatapi.com/images/a3c.jpg"
+            ],
             "text": "Кроссовки хорошие. Удобные. Как по мне сшиты.",
             "created": "1 час назад"
         },
@@ -12,6 +20,12 @@
             "first_name": "Екатерина",
             "last_name": "Иванова",
             "rating": 3,
+            "avatar_url": "https://cdn2.thecatapi.com/images/br1.jpg",
+            "photo_urls": [
+                "https://cdn2.thecatapi.com/images/a3c.jpg",
+                "https://cdn2.thecatapi.com/images/bb7.jpg",
+                "https://cdn2.thecatapi.com/images/a3c.jpg",
+            ],
             "text": "Скользские ужасно.",
             "created": "12 минут назад"
         },
@@ -19,6 +33,9 @@
             "first_name": "Евгения",
             "last_name": "Петрова",
             "rating": 4,
+            "avatar_url": null,
+            "photo_urls": [
+            ],
             "text": "Прошла по снегу 30 метров, 5 раз упала. Спасибо мужу, поддерживал. Возврат, к сожалению.",
             "created": "35 минут назад"
         },
@@ -26,6 +43,9 @@
             "first_name": "Илья",
             "last_name": "Петров",
             "rating": 2,
+            "avatar_url": null,
+            "photo_urls": [
+            ],
             "text": "Понравилось отношение - несмотря на то, что заказ был выполнен не идеально, продавец был очень любезен и шёл... Прошла по снегу 30 метров, 5 раз упала. Спасибо мужу, поддерживал. Возврат, к сожалению.",
             "created": "минуту назад"
         },
@@ -33,6 +53,9 @@
             "first_name": "Никита",
             "last_name": "Иванов",
             "rating": 5,
+            "avatar_url": null,
+            "photo_urls": [
+            ],
             "text": "Отлично выглядят, хоть и скользковатые...",
             "created": "только что"
         },
@@ -40,6 +63,9 @@
             "first_name": "Олег",
             "last_name": "Николаев",
             "rating": 1,
+            "avatar_url": null,
+            "photo_urls": [
+            ],
             "text": "Ребёнок жалуется, что очень скользские. Пока шла до школы...",
             "created": "15 минут назад"
         },
@@ -47,6 +73,9 @@
             "first_name": "Николай",
             "last_name": "Петров",
             "rating": 2,
+            "avatar_url": null,
+            "photo_urls": [
+            ],
             "text": "",
             "created": "вчера в 12:39"
         },
@@ -56,6 +85,9 @@
             "first_name": "Иван",
             "last_name": "Петров",
             "rating": 5,
+            "avatar_url": null,
+            "photo_urls": [
+            ],
             "text": "Кроссовки хорошие. Удобные. Как по мне сшиты.",
             "created": "1 час назад"
         },
@@ -63,6 +95,9 @@
             "first_name": "Екатерина",
             "last_name": "Иванова",
             "rating": 3,
+            "avatar_url": null,
+            "photo_urls": [
+            ],
             "text": "Скользские ужасно.",
             "created": "12 минут назад"
         },
@@ -70,6 +105,9 @@
             "first_name": "Евгения",
             "last_name": "Петрова",
             "rating": 4,
+            "avatar_url": null,
+            "photo_urls": [
+            ],
             "text": "Прошла по снегу 30 метров, 5 раз упала. Спасибо мужу, поддерживал. Возврат, к сожалению.",
             "created": "35 минут назад"
         },
@@ -77,6 +115,9 @@
             "first_name": "Илья",
             "last_name": "Петров",
             "rating": 2,
+            "avatar_url": null,
+            "photo_urls": [
+            ],
             "text": "Понравилось отношение - несмотря на то, что заказ был выполнен не идеально, продавец был очень любезен и шёл... Прошла по снегу 30 метров, 5 раз упала. Спасибо мужу, поддерживал. Возврат, к сожалению.",
             "created": "минуту назад"
         },
@@ -84,6 +125,9 @@
             "first_name": "Никита",
             "last_name": "Иванов",
             "rating": 5,
+            "avatar_url": null,
+            "photo_urls": [
+            ],
             "text": "Отлично выглядят, хоть и скользковатые...",
             "created": "только что"
         },
@@ -91,6 +135,9 @@
             "first_name": "Олег",
             "last_name": "Николаев",
             "rating": 1,
+            "avatar_url": null,
+            "photo_urls": [
+            ],
             "text": "Ребёнок жалуется, что очень скользские. Пока шла до школы...",
             "created": "15 минут назад"
         },
@@ -98,6 +145,9 @@
             "first_name": "Николай",
             "last_name": "Петров",
             "rating": 2,
+            "avatar_url": "https://cdn2.thecatapi.com/images/e5t.jpg",
+            "photo_urls": [
+            ],
             "text": "",
             "created": "вчера в 12:39"
         },
@@ -107,6 +157,9 @@
             "first_name": "Иван",
             "last_name": "Петров",
             "rating": 5,
+            "avatar_url": null,
+            "photo_urls": [
+            ],
             "text": "Кроссовки хорошие. Удобные. Как по мне сшиты.",
             "created": "1 час назад"
         },
@@ -114,6 +167,9 @@
             "first_name": "Екатерина",
             "last_name": "Иванова",
             "rating": 3,
+            "avatar_url": null,
+            "photo_urls": [
+            ],
             "text": "Скользские ужасно.",
             "created": "12 минут назад"
         },
@@ -121,6 +177,9 @@
             "first_name": "Евгения",
             "last_name": "Петрова",
             "rating": 4,
+            "avatar_url": "https://cdn2.thecatapi.com/images/OfIuuOv07.jpg",
+            "photo_urls": [
+            ],
             "text": "Прошла по снегу 30 метров, 5 раз упала. Спасибо мужу, поддерживал. Возврат, к сожалению.",
             "created": "35 минут назад"
         },
@@ -128,6 +187,9 @@
             "first_name": "Илья",
             "last_name": "Петров",
             "rating": 2,
+            "avatar_url": null,
+            "photo_urls": [
+            ],
             "text": "Понравилось отношение - несмотря на то, что заказ был выполнен не идеально, продавец был очень любезен и шёл... Прошла по снегу 30 метров, 5 раз упала. Спасибо мужу, поддерживал. Возврат, к сожалению.",
             "created": "минуту назад"
         },
@@ -135,6 +197,9 @@
             "first_name": "Никита",
             "last_name": "Иванов",
             "rating": 5,
+            "avatar_url": null,
+            "photo_urls": [
+            ],
             "text": "Отлично выглядят, хоть и скользковатые...",
             "created": "только что"
         },
@@ -142,6 +207,9 @@
             "first_name": "Олег",
             "last_name": "Николаев",
             "rating": 1,
+            "avatar_url": null,
+            "photo_urls": [
+            ],
             "text": "Ребёнок жалуется, что очень скользские. Пока шла до школы...",
             "created": "15 минут назад"
         },
@@ -149,6 +217,9 @@
             "first_name": "Николай",
             "last_name": "Петров",
             "rating": 2,
+            "avatar_url": null,
+            "photo_urls": [
+            ],
             "text": "",
             "created": "вчера в 12:39"
         },

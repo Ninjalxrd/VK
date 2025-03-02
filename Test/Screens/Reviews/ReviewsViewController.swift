@@ -19,10 +19,16 @@ final class ReviewsViewController: UIViewController {
         title = "Отзывы"
     }
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModel()
         viewModel.getReviews()
+    }
+    
+    deinit {
+        reviewsView.tableView.dataSource = nil
+        reviewsView.tableView.delegate = nil
     }
 
 }
@@ -37,10 +43,17 @@ private extension ReviewsViewController {
         reviewsView.tableView.dataSource = viewModel
         return reviewsView
     }
-
+    
     func setupViewModel() {
-        viewModel.onStateChange = { [weak reviewsView] _ in
-            reviewsView?.tableView.reloadData()
+        viewModel.onStateChange = { [weak self] state in
+            DispatchQueue.main.async {
+                self?.reviewsView.tableView.reloadData()
+                if state.isLoading {
+                    self?.reviewsView.showLoadingIndicator()
+                } else {
+                    self?.reviewsView.hideLoadingIndicator()
+                }
+            }
         }
     }
 
