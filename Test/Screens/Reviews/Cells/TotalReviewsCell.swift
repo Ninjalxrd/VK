@@ -42,6 +42,11 @@ final class TotalCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        totalLabel.text = nil
+    }
+    
     private lazy var totalLabel: UILabel = {
         let label = UILabel()
         label.font = .reviewCount

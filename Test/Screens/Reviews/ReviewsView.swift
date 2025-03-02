@@ -39,6 +39,8 @@ extension ReviewsView {
         addSubview(tableView)
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
+        tableView.showsVerticalScrollIndicator = false
+        tableView.estimatedRowHeight = 100
         tableView.register(ReviewCell.self, forCellReuseIdentifier: ReviewCellConfig.reuseId)
         tableView.register(TotalCell.self, forCellReuseIdentifier: TotalReviewsCellConfig.reuseId)
     }

@@ -38,6 +38,11 @@
         /// Вызывается из `cellForRowAt:` у `dataSource` таблицы.
         func update(cell: UITableViewCell) {
             guard let cell = cell as? ReviewCell else { return }
+            
+            cell.photoImageViews.forEach {
+                $0.isHidden = true
+                $0.image = nil
+            }
             cell.ratingImageView.image = RatingRenderer().ratingImage(rating)
             cell.fullNameLabel.attributedText = fullNameText
             cell.reviewTextLabel.attributedText = reviewText
@@ -63,6 +68,8 @@
                             cell.photoImageViews[index].image = image
                             cell.photoImageViews[index].isHidden = false
                         }
+                        cell.setNeedsLayout()
+                        cell.layoutIfNeeded()
                     }
                 }
             }
@@ -115,6 +122,9 @@
             avatarImageView.frame = layout.avatarImageFrame
             fullNameLabel.frame = layout.fullNameLabelFrame
             ratingImageView.frame = layout.ratingImageViewFrame
+            photoImageViews.forEach {
+                $0.frame = .zero
+            }
             for (index, imageView) in photoImageViews.enumerated() {
                 if index < layout.photoImageViewFrames.count {
                     imageView.frame = layout.photoImageViewFrames[index]
@@ -128,7 +138,13 @@
         override func prepareForReuse() {
             super.prepareForReuse()
             avatarImageView.image = nil
-            photoImageViews.forEach { $0.image = nil; $0.isHidden = true }
+            for photo in photoImageViews {
+                photo.image = nil
+                photo.isHidden = true
+                photo.frame = .zero
+            }
+            reviewTextLabel.text = nil
+            createdLabel.text = nil
         }
     }
 
@@ -208,7 +224,7 @@ private final class ReviewCellLayout {
     fileprivate static let avatarSize = CGSize(width: 36.0, height: 36.0)
     fileprivate static let avatarCornerRadius = 18.0
     fileprivate static let photoCornerRadius = 8.0
-    private static let ratingSize = CGSize(width: 80.0, height: 16.0)
+    private static let ratingSize = CGSize(width: 86.0, height: 16.0)
     private static let photoSize = CGSize(width: 55.0, height: 66.0)
     private static let showMoreButtonSize = Config.showMoreText.size()
     
@@ -275,20 +291,25 @@ private final class ReviewCellLayout {
         
         maxY = ratingImageViewFrame.maxY + ratingToTextSpacing
         if let photoURLs = config.photoURLs, !photoURLs.isEmpty {
-            var photoX = fullNameLabelFrame.minX
+            var startX = fullNameLabelFrame.minX
+            var currentX = startX
+            var currentY = maxY
+            
+            photoImageViewFrames.removeAll()
+            
             for _ in photoURLs {
                 let photoFrame = CGRect(
-                    x: photoX,
-                    y: maxY,
+                    x: currentX,
+                    y: currentY,
                     width: Self.photoSize.width,
                     height: Self.photoSize.height
                 )
                 photoImageViewFrames.append(photoFrame)
                 
-                photoX += Self.photoSize.width + photosSpacing
+                currentX += Self.photoSize.width + photosSpacing
             }
             
-            maxY += Self.photoSize.height + photosToTextSpacing
+            maxY = currentY + Self.photoSize.height + photosToTextSpacing
             
         }
 

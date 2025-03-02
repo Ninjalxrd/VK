@@ -156,7 +156,6 @@ extension ReviewsViewModel: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: TotalReviewsCellConfig.reuseId,
                                                      for: indexPath) as! TotalCell
             TotalReviewsCellConfig(total: state.count).update(cell: cell)
-            print(state.count)
             return cell
         }
         
